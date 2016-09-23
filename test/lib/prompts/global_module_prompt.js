@@ -21,7 +21,7 @@ test.cb.before(function(t) {
 	}, function(config) {
 		GlobalModulePrompt = require('../../../lib/prompts/global_module_prompt.js');
 		ModulePrompt = require('../../../lib/prompts/module_prompt.js');
-		themeFinder = require('../../../lib/theme_finder');
+		themeFinder = require('liferay-theme-finder');
 
 		t.end();
 	});
