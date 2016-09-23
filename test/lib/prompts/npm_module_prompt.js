@@ -24,7 +24,7 @@ test.cb.before(function(t) {
 	}, function(config) {
 		NPMModulePrompt = require('../../../lib/prompts/npm_module_prompt.js');
 		ModulePrompt = require('../../../lib/prompts/module_prompt.js');
-		themeFinder = require('../../../lib/theme_finder');
+		themeFinder = require('liferay-theme-finder');
 
 		t.end();
 	});
@@ -128,14 +128,14 @@ test('_afterPromptSearchTerms should either re-prompt search terms or invoke mod
 	t.true(modulePromptInitSpy.calledOnce);
 });
 
-test('_getNPMModules should invoke themeFinder.getLiferayThemeModules', function(t) {
-	var getLiferayThemeModulesSpy = prototypeMethodSpy.add(themeFinder, 'getLiferayThemeModules');
+test('_getNPMModules should invoke themeFinder.find', function(t) {
+	var findSpy = prototypeMethodSpy.add(themeFinder, 'find');
 
 	prototype.themelet = 'themelet';
 
 	prototype._getNPMModules('some keyword', _.noop);
 
-	t.true(getLiferayThemeModulesSpy.calledWith({
+	t.true(findSpy.calledWith({
 		globalModules: false,
 		searchTerms: 'some keyword',
 		themelet: 'themelet'

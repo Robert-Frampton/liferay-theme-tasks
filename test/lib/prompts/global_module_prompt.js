@@ -21,7 +21,7 @@ test.cb.before(function(t) {
 	}, function(config) {
 		GlobalModulePrompt = require('../../../lib/prompts/global_module_prompt.js');
 		ModulePrompt = require('../../../lib/prompts/module_prompt.js');
-		themeFinder = require('../../../lib/theme_finder');
+		themeFinder = require('liferay-theme-finder');
 
 		t.end();
 	});
@@ -84,14 +84,14 @@ test('_afterPrompt should log message if no modules are found', function(t) {
 	t.true(prototype.done.calledWith({}));
 });
 
-test('_getGlobalModules should invoke themeFinder.getLiferayThemeModules', function(t) {
-	var getLiferayThemeModulesSpy = prototypeMethodSpy.add(themeFinder, 'getLiferayThemeModules');
+test('_getGlobalModules should invoke themeFinder.find', function(t) {
+	var findSpy = prototypeMethodSpy.add(themeFinder, 'find');
 
 	prototype.themelet = 'themelet';
 
 	prototype._getGlobalModules(_.noop);
 
-	t.true(getLiferayThemeModulesSpy.calledWith({
+	t.true(findSpy.calledWith({
 		globalModules: true,
 		themelet: 'themelet'
 	}, _.noop));
